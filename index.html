@@ -9,6 +9,7 @@
         body {
             font-family: 'Roboto', sans-serif;
             text-align: center;
+            margin: 0; /* Добавлено для удаления отступов по краям */
         }
 
         .cat-icon {
@@ -26,8 +27,11 @@
 
         .task-container {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column; /* Изменяем на column */
+            align-items: center;
+            justify-content: center; /* Выравниваем по центру */
+            width: 100%; /* Занимает всю ширину */
+            padding: 0 20px; /* Добавляем отступы по бокам */
         }
 
         .task {
@@ -49,109 +53,66 @@
             font-size: 1em;
         }
 
-        .nav-buttons {
+        .control-panel {
             display: flex;
             justify-content: space-around;
             width: 100%;
-            margin-top: 40px;
             position: fixed;
             bottom: 0;
             left: 0;
             background-color: #f2f2f2;
             padding: 10px;
-            width: 100%;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px; /* Скругление углов */
         }
 
-        .nav-button {
+        .control-button {
             background-color: transparent;
             border: none;
-            border-radius: 0; 
+            border-radius: 10px; /* Скругление углов */
             padding: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s; /* Добавлена анимация тени */
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 33.33%; /* Занимает 1/3 ширины контейнера */
-            height: 100px;
+            width: 70px; 
+            height: 70px; 
         }
 
-        .nav-button:hover {
-            background-color: #e0e0e0;
+        .control-button:hover {
+            transform: scale(1.1); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тени при наведении */
         }
 
-        .square-button {
-            background: linear-gradient(to bottom, #f2f2f2, #fff); /* Переливающийся фон */
-            border: none;
-            border-radius: 0; 
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100px; 
-            height: 100px; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .control-button img {
+            width: 40px; 
+            height: 40px;
         }
-
-        .square-button:hover {
-            background: linear-gradient(to bottom, #e0e0e0, #f2f2f2); /* Переливающийся фон при наведении */
-        }
-
         /* Media Queries for Responsive Design */
         @media (max-width: 768px) { 
             .task-container {
-                flex-direction: column; 
+                /* flex-direction: column;  - Уже установлено */
             }
 
-            .nav-buttons {
+            .control-panel {
                 flex-direction: column;
                 align-items: center;
             }
 
-            .nav-button {
+            .control-button {
                 margin-bottom: 10px;
                 width: 100%; 
             }
-
-            .square-button {
-                width: 100%; 
-            }
         }
 
-        /* Стили для всплывающих окон */
-        .popup {
-            display: none;
-            position: fixed;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            z-index: 100;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-
-        /* Стили для иконок навигации */
-        .nav-button img {
-            width: 50px; /* Исправленный размер иконки */
-            height: 50px;
-        }
-
-        /* Стили для адаптивности иконок */
-        @media (max-width: 768px) { 
-            .nav-button img {
-                width: 40px;
-                height: 40px;
-            }
+        /* Стиль для контейнера с кнопками */
+        .control-buttons-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 300px; /* Максимальная ширина */
+            margin: 0 auto; /* Центрирование по горизонтали */
         }
     </style>
 </head>
@@ -190,33 +151,17 @@
             </div>
         </div>
 
-        <div class="popup" id="popup-home">
-            <span class="popup-close" onclick="closePopup('popup-home')">&times;</span>
-            <h2>Home Page</h2>
-            <p>This is the content of the home page.</p>
-        </div>
-
-        <div class="popup" id="popup-leaderboard">
-            <span class="popup-close" onclick="closePopup('popup-leaderboard')">&times;</span>
-            <h2>Leaderboard</h2>
-            <p>This is the content of the leaderboard page.</p>
-        </div>
-
-        <div class="popup" id="popup-friends">
-            <span class="popup-close" onclick="closePopup('popup-friends')">&times;</span>
-            <h2>Friends</h2>
-            <p>This is the content of the friends page.</p>
-        </div>
-
-        <div class="nav-buttons">
-            <div class="nav-button" onclick="openPopup('popup-home')">
-                <img src="home.svg" alt="Home"> 
-            </div>
-            <div class="nav-button" onclick="openPopup('popup-leaderboard')">
-                <img src="fridge.svg" alt="Leaderboard"> 
-            </div>
-            <div class="nav-button" onclick="openPopup('popup-friends')">
-                <img src="icebearg.svg" alt="Friends"> 
+        <div class="control-panel">
+            <div class="control-buttons-container"> 
+                <div class="control-button">
+                    <img src="холодос.PNG" alt="Холодильник">
+                </div>
+                <div class="control-button">
+                    <img src="home.PNG" alt="Домой">
+                </div>
+                <div class="control-button">
+                    <img src="icebearg.PNG" alt="Друзья">
+                </div>
             </div>
         </div>
     </div>
@@ -224,14 +169,5 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function openPopup(popupId) {
-            document.getElementById(popupId).style.display = 'block';
-        }
-
-        function closePopup(popupId) {
-            document.getElementById(popupId).style.display = 'none';
-        }
-    </script>
 </body>
 </html>
