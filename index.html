@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomis Cats</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+        }
+
+        .cat-icon {
+            font-size: 2em;
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .cat-count {
+            font-size: 3em;
+            margin-bottom: 30px;
+        }
+
+        .task-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .task {
+            margin: 10px;
+            width: 100%;
+            max-width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .task-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .task-count {
+            font-size: 1em;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 40px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #f2f2f2;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .nav-button {
+            background-color: transparent;
+            border: none;
+            border-radius: 0; 
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 33.33%; /* Занимает 1/3 ширины контейнера */
+            height: 100px;
+        }
+
+        .nav-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .square-button {
+            background: linear-gradient(to bottom, #f2f2f2, #fff); /* Переливающийся фон */
+            border: none;
+            border-radius: 0; 
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100px; 
+            height: 100px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .square-button:hover {
+            background: linear-gradient(to bottom, #e0e0e0, #f2f2f2); /* Переливающийся фон при наведении */
+        }
+
+        /* Media Queries for Responsive Design */
+        @media (max-width: 768px) { 
+            .task-container {
+                flex-direction: column; 
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-button {
+                margin-bottom: 10px;
+                width: 100%; 
+            }
+
+            .square-button {
+                width: 100%; 
+            }
+        }
+
+        /* Стили для всплывающих окон */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        /* Стили для иконок навигации */
+        .nav-button img {
+            width: 50px; /* Исправленный размер иконки */
+            height: 50px;
+        }
+
+        /* Стили для адаптивности иконок */
+        @media (max-width: 768px) { 
+            .nav-button img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="header">
+                    <span class="cat-icon">🐈‍⬛</span>
+                    <h1>GET MORE CATS WITH NOMIS NOW!</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <img src="https://freepngimg.com/thumb/tshirt/75137-tux-tuxedo-t-shirt-racer-penguins-linux.png" alt="tuxedo penguin" width="150" height="150" class="img-fluid mx-auto d-block">
+                <div class="cat-count">
+                    <h1>1,063 CATS</h1>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="tasks-header">Tasks</h2>
+                <div class="task-container">
+                    <div class="task">
+                        <div class="task-title">Boost CATS channel</div>
+                        <div class="task-count">50 CATS</div>
+                    </div>
+                    <div class="task">
+                        <div class="task-title">Subscribe to Channel</div>
+                        <div class="task-count">100 CATS</div>
+                    </div>
+                </div>
+                <button class="btn btn-secondary">Show more tasks</button>
+            </div>
+        </div>
+
+        <div class="popup" id="popup-home">
+            <span class="popup-close" onclick="closePopup('popup-home')">&times;</span>
+            <h2>Home Page</h2>
+            <p>This is the content of the home page.</p>
+        </div>
+
+        <div class="popup" id="popup-leaderboard">
+            <span class="popup-close" onclick="closePopup('popup-leaderboard')">&times;</span>
+            <h2>Leaderboard</h2>
+            <p>This is the content of the leaderboard page.</p>
+        </div>
+
+        <div class="popup" id="popup-friends">
+            <span class="popup-close" onclick="closePopup('popup-friends')">&times;</span>
+            <h2>Friends</h2>
+            <p>This is the content of the friends page.</p>
+        </div>
+
+        <div class="nav-buttons">
+            <div class="nav-button" onclick="openPopup('popup-home')">
+                <img src="home.svg" alt="Home"> 
+            </div>
+            <div class="nav-button" onclick="openPopup('popup-leaderboard')">
+                <img src="fridge.svg" alt="Leaderboard"> 
+            </div>
+            <div class="nav-button" onclick="openPopup('popup-friends')">
+                <img src="icebearg.svg" alt="Friends"> 
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = 'block';
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
